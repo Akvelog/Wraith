@@ -3,7 +3,5 @@ lib/Wraith.pm
 Makefile.PL
 MANIFEST
 README
-t/*.t
 t/basic.t
 t/lc2pl.t
-Wraith-0.07.tar.gz

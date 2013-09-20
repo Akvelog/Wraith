@@ -1,6 +1,7 @@
 Changes
+lib/Wraith.pm
 Makefile.PL
 MANIFEST
 README
-t/*.t
-lib/Wraith.pm
+t/basic.t
+t/lc2pl.t

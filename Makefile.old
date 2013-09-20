@@ -57,11 +57,11 @@ DIRFILESEP = /
 DFSEP = $(DIRFILESEP)
 NAME = Wraith
 NAME_SYM = Wraith
-VERSION = 0.08
+VERSION = 0.09
 VERSION_MACRO = VERSION
-VERSION_SYM = 0_08
+VERSION_SYM = 0_09
 DEFINE_VERSION = -D$(VERSION_MACRO)=\"$(VERSION)\"
-XS_VERSION = 0.08
+XS_VERSION = 0.09
 XS_VERSION_MACRO = XS_VERSION
 XS_DEFINE_VERSION = -D$(XS_VERSION_MACRO)=\"$(XS_VERSION)\"
 INST_ARCHLIB = blib/arch
@@ -255,7 +255,7 @@ RCS_LABEL = rcs -Nv$(VERSION_SYM): -q
 DIST_CP = best
 DIST_DEFAULT = tardist
 DISTNAME = Wraith
-DISTVNAME = Wraith-0.08
+DISTVNAME = Wraith-0.09
 
 
 # --- MakeMaker macro section:
@@ -437,22 +437,22 @@ clean_subdirs :
 
 clean :: clean_subdirs
 	- $(RM_F) \
-	  *$(OBJ_EXT) *perl.core \
-	  perlmain.c $(BASEEXT).x \
-	  MYMETA.yml $(BASEEXT).bso \
-	  core.[0-9] core.[0-9][0-9][0-9][0-9][0-9] \
-	  $(INST_ARCHAUTODIR)/extralibs.all pm_to_blib \
-	  lib$(BASEEXT).def core \
-	  *$(LIB_EXT) core.[0-9][0-9][0-9][0-9] \
-	  pm_to_blib.ts perl.exe \
-	  $(INST_ARCHAUTODIR)/extralibs.ld $(BASEEXT).exp \
-	  blibdirs.ts mon.out \
-	  $(MAKE_APERL_FILE) MYMETA.json \
-	  core.[0-9][0-9] core.[0-9][0-9][0-9] \
-	  $(BASEEXT).def tmon.out \
-	  $(BOOTSTRAP) perl \
-	  core.*perl.*.? perl$(EXE_EXT) \
-	  so_locations 
+	  perl.exe tmon.out \
+	  mon.out $(INST_ARCHAUTODIR)/extralibs.all \
+	  $(BASEEXT).x so_locations \
+	  core.[0-9][0-9][0-9] perl$(EXE_EXT) \
+	  $(BOOTSTRAP) core.[0-9][0-9] \
+	  perl *perl.core \
+	  perlmain.c MYMETA.yml \
+	  *$(LIB_EXT) $(BASEEXT).def \
+	  core pm_to_blib \
+	  MYMETA.json pm_to_blib.ts \
+	  lib$(BASEEXT).def $(BASEEXT).exp \
+	  *$(OBJ_EXT) $(MAKE_APERL_FILE) \
+	  core.[0-9][0-9][0-9][0-9] core.[0-9] \
+	  $(BASEEXT).bso core.*perl.*.? \
+	  blibdirs.ts $(INST_ARCHAUTODIR)/extralibs.ld \
+	  core.[0-9][0-9][0-9][0-9][0-9] 
 	- $(RM_RF) \
 	  blib 
 	- $(MV) $(FIRST_MAKEFILE) $(MAKEFILE_OLD) $(DEV_NULL)
@@ -495,7 +495,7 @@ metafile : create_distdir
 	$(NOECHO) $(ECHO) '    - t' >> META_new.yml
 	$(NOECHO) $(ECHO) '    - inc' >> META_new.yml
 	$(NOECHO) $(ECHO) 'requires: {}' >> META_new.yml
-	$(NOECHO) $(ECHO) 'version: 0.08' >> META_new.yml
+	$(NOECHO) $(ECHO) 'version: 0.09' >> META_new.yml
 	-$(NOECHO) $(MV) META_new.yml $(DISTVNAME)/META.yml
 	$(NOECHO) $(ECHO) Generating META.json
 	$(NOECHO) $(ECHO) '{' > META_new.json
@@ -535,7 +535,7 @@ metafile : create_distdir
 	$(NOECHO) $(ECHO) '      }' >> META_new.json
 	$(NOECHO) $(ECHO) '   },' >> META_new.json
 	$(NOECHO) $(ECHO) '   "release_status" : "stable",' >> META_new.json
-	$(NOECHO) $(ECHO) '   "version" : "0.08"' >> META_new.json
+	$(NOECHO) $(ECHO) '   "version" : "0.09"' >> META_new.json
 	$(NOECHO) $(ECHO) '}' >> META_new.json
 	-$(NOECHO) $(MV) META_new.json $(DISTVNAME)/META.json
 
