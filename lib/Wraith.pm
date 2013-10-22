@@ -303,7 +303,7 @@ the analysis result and the second parameter is the unprocessed input string.
 
 It takes an argument, discards it and return an empty list.
 
-Those two operators are rarely used. Use them if you need new combinators.
+Those two operators are rarely used. Use them if you need new combinators or empty matches.
 
 =head3 reference $literal
 

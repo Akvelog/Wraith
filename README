@@ -92,7 +92,7 @@ DESCRIPTION
   $fail
     It takes an argument, discards it and return an empty list.
 
-    Those two operators are rarely used. Use them if you need new combinators.
+    Those two operators are rarely used. Use them if you need new combinators or empty matches.
 
   $literal
     It takes one character as the only argument. The returned function match the first 
