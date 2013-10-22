@@ -40,7 +40,6 @@ our $VERSION = 0.11;
         @args
     }
 
-    our $concat =
     sub concat_impl {
         my @list_of_lists = @_;
         my @list;
@@ -50,9 +49,8 @@ our $VERSION = 0.11;
         }
         \@list
     };
+    our $concat = \&concat_impl;
 
-    our $succeed = 
-    bless
     sub succeed_impl {
         my $v = $_[0];
         bless
@@ -61,15 +59,13 @@ our $VERSION = 0.11;
             [ [ $u, $_[0] ] ]
         }
     };
+    our $succeed = bless \&succeed_impl;
 
-    our $fail = 
-    bless
     sub fail_impl {
         []
     };
+    our $fail = bless \&fail_impl;
 
-    our $satisfy = 
-    bless
     sub satisfy_impl {
         my ($p, $m) = @_;
         $m = sub { $_[0] =~ /(.)(.*)/s } if not $m;
@@ -86,9 +82,8 @@ our $VERSION = 0.11;
             }
         }
     };
+    our $satisfy = bless \&satisfy_impl;
 
-    our $literal = 
-    bless
     sub literal_impl {
         my $y = $_[0];
         $satisfy->( 
@@ -97,9 +92,8 @@ our $VERSION = 0.11;
             }
         )
     };
+    our $literal = bless \&literal_impl;
 
-    our $literals = 
-    bless
     sub literals_impl {
         my $y = $_[0];
         $satisfy->(
@@ -108,9 +102,8 @@ our $VERSION = 0.11;
             }
         )
     };
+    our $literals = bless \&literals_impl;
 
-    our $token =
-    bless 
     sub token_impl {
         my ($tok, $skip) = @_;
         $skip = '\s*' if not $skip;
@@ -121,6 +114,7 @@ our $VERSION = 0.11;
             }
         )
     };
+    our $token = bless \&token_impl;
 
     sub alt_impl {
         my ($p1_, $p2_, $discard) = @_;
