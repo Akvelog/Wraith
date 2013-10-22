@@ -57,11 +57,11 @@ DIRFILESEP = /
 DFSEP = $(DIRFILESEP)
 NAME = Wraith
 NAME_SYM = Wraith
-VERSION = 0.09
+VERSION = 0.11
 VERSION_MACRO = VERSION
-VERSION_SYM = 0_09
+VERSION_SYM = 0_11
 DEFINE_VERSION = -D$(VERSION_MACRO)=\"$(VERSION)\"
-XS_VERSION = 0.09
+XS_VERSION = 0.11
 XS_VERSION_MACRO = XS_VERSION
 XS_DEFINE_VERSION = -D$(XS_VERSION_MACRO)=\"$(XS_VERSION)\"
 INST_ARCHLIB = blib/arch
@@ -255,7 +255,7 @@ RCS_LABEL = rcs -Nv$(VERSION_SYM): -q
 DIST_CP = best
 DIST_DEFAULT = tardist
 DISTNAME = Wraith
-DISTVNAME = Wraith-0.09
+DISTVNAME = Wraith-0.11
 
 
 # --- MakeMaker macro section:
@@ -437,22 +437,22 @@ clean_subdirs :
 
 clean :: clean_subdirs
 	- $(RM_F) \
-	  blibdirs.ts $(INST_ARCHAUTODIR)/extralibs.ld \
-	  $(BASEEXT).bso mon.out \
-	  perlmain.c core.[0-9] \
-	  $(MAKE_APERL_FILE) perl.exe \
-	  core.[0-9][0-9][0-9] core.[0-9][0-9][0-9][0-9] \
-	  core.[0-9][0-9][0-9][0-9][0-9] MYMETA.yml \
-	  pm_to_blib $(BOOTSTRAP) \
-	  pm_to_blib.ts core.[0-9][0-9] \
-	  $(BASEEXT).x *$(OBJ_EXT) \
-	  lib$(BASEEXT).def $(INST_ARCHAUTODIR)/extralibs.all \
-	  core $(BASEEXT).exp \
-	  *$(LIB_EXT) so_locations \
-	  perl$(EXE_EXT) core.*perl.*.? \
-	  tmon.out $(BASEEXT).def \
-	  perl *perl.core \
-	  MYMETA.json 
+	  perlmain.c $(BOOTSTRAP) \
+	  pm_to_blib *$(LIB_EXT) \
+	  $(BASEEXT).bso core.[0-9][0-9][0-9][0-9][0-9] \
+	  perl core.[0-9][0-9] \
+	  pm_to_blib.ts *perl.core \
+	  core.[0-9][0-9][0-9] core.*perl.*.? \
+	  $(BASEEXT).exp so_locations \
+	  $(BASEEXT).x lib$(BASEEXT).def \
+	  $(BASEEXT).def MYMETA.yml \
+	  $(INST_ARCHAUTODIR)/extralibs.all MYMETA.json \
+	  $(INST_ARCHAUTODIR)/extralibs.ld mon.out \
+	  *$(OBJ_EXT) blibdirs.ts \
+	  core.[0-9][0-9][0-9][0-9] core.[0-9] \
+	  tmon.out core \
+	  perl.exe $(MAKE_APERL_FILE) \
+	  perl$(EXE_EXT) 
 	- $(RM_RF) \
 	  blib 
 	- $(MV) $(FIRST_MAKEFILE) $(MAKEFILE_OLD) $(DEV_NULL)
@@ -467,7 +467,7 @@ realclean_subdirs :
 # Delete temporary files (via clean) and also delete dist files
 realclean purge ::  clean realclean_subdirs
 	- $(RM_F) \
-	  $(MAKEFILE_OLD) $(FIRST_MAKEFILE) 
+	  $(FIRST_MAKEFILE) $(MAKEFILE_OLD) 
 	- $(RM_RF) \
 	  $(DISTVNAME) 
 
@@ -495,7 +495,7 @@ metafile : create_distdir
 	$(NOECHO) $(ECHO) '    - t' >> META_new.yml
 	$(NOECHO) $(ECHO) '    - inc' >> META_new.yml
 	$(NOECHO) $(ECHO) 'requires: {}' >> META_new.yml
-	$(NOECHO) $(ECHO) 'version: 0.09' >> META_new.yml
+	$(NOECHO) $(ECHO) 'version: 0.11' >> META_new.yml
 	-$(NOECHO) $(MV) META_new.yml $(DISTVNAME)/META.yml
 	$(NOECHO) $(ECHO) Generating META.json
 	$(NOECHO) $(ECHO) '{' > META_new.json
@@ -535,7 +535,7 @@ metafile : create_distdir
 	$(NOECHO) $(ECHO) '      }' >> META_new.json
 	$(NOECHO) $(ECHO) '   },' >> META_new.json
 	$(NOECHO) $(ECHO) '   "release_status" : "stable",' >> META_new.json
-	$(NOECHO) $(ECHO) '   "version" : "0.09"' >> META_new.json
+	$(NOECHO) $(ECHO) '   "version" : "0.11"' >> META_new.json
 	$(NOECHO) $(ECHO) '}' >> META_new.json
 	-$(NOECHO) $(MV) META_new.json $(DISTVNAME)/META.json
 
