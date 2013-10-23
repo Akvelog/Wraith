@@ -13,3 +13,7 @@ implemented.
 * Basic combinators - alternative, sequence and kleene star operators.
 * Semantic action support.
 * Combinators as overloaded perl operators - BNF-like usage.
+
+## TODO
+
+* Greedy/Non-greedy many for better performance.
