@@ -211,12 +211,9 @@ Wraith - Parser Combinator in Perl
     my ($E, $Etail, $T, $Ttail, $F, $num);
     Wraith_rule->makerules(\$E, \$Etail, \$T, \$Ttail, \$F, \$num);
 
-    my $n_reduces = 0;
-
     sub calclist {
         my $tag = shift;
         sub {
-            $n_reduces++;
             my ($car, @cdr) = @{$_[0]};
             for my $elt (@cdr) {
                 $car = $elt->($car);
@@ -228,7 +225,6 @@ Wraith - Parser Combinator in Perl
     sub buildelt {
         my $tag = shift;
         sub {
-            $n_reduces++;
             my ($binop, $operand) = @{$_[0]};
             my %opdict = (
                 '+' => sub { $_[0] + $operand },
@@ -243,7 +239,6 @@ Wraith - Parser Combinator in Perl
     sub identity {
         my $tag = shift;
         sub {
-            $n_reduces++;
             $_[0]
         }
     }
@@ -252,11 +247,10 @@ Wraith - Parser Combinator in Perl
     $Etail = ($token->('[+-]') >> (\$T)) ** (buildelt("Etail"));
     $T = ((\$F) >> $many->(\$Ttail)) ** (calclist("T"));
     $Ttail = ($token->('[\/*]') >> (\$F)) ** (buildelt("Ttail"));
-    $F = (($token->('\(') >> (\$E) >> $token->('\)')) ** sub { $n_reduces++; [ $_[0]->[1] ] } ) | ((\$num) ** (identity("F")));
+    $F = (($token->('\(') >> (\$E) >> $token->('\)')) ** sub { [ $_[0]->[1] ] } ) | ((\$num) ** (identity("F")));
     $num = $token->('[1-9][0-9]*') ** (identity("num"));
 
     print $E->('1 + 13 / 2 * 3 + 2 * (2 + 3) + 2 * 3')->[0]->[0]->[0], "\n";
-    print "$n_reduces reduce(s)\n";
 
 =head1 DESCRIPTION
 
