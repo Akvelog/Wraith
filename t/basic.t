@@ -3,8 +3,8 @@
 use strict;
 use warnings;
 
-use Test::More tests => 14;
-use Wraith qw ( $many $token $literal $literals );
+use Test::More tests => 17;
+use Wraith qw ( $many $token $literal $literals $many_g );
 
 my $res_literal = $literal->('a')->('aaab');
 ok($res_literal->[0]->[0]->[0] eq 'a');
@@ -33,3 +33,11 @@ ok(scalar @$nopass_alt eq 0);
 my $res_using = ( ($literal->('3')) ** sub { [ $_[0]->[0] + 1 ] } )->('34');
 ok($res_using->[0]->[0]->[0] eq '4');
 ok($res_using->[0]->[1] eq '4');
+
+my $res_many_g = $many_g->($token->('[1-9][0-9]*'))->('12 324 23');
+my @check_many_g = (12, 324, 23);
+my $cnt_many_g = 0;
+for my $elt (@check_many_g) {
+    ok($res_many_g->[0]->[0]->[$cnt_many_g] eq $elt);
+    $cnt_many_g++;
+}

@@ -9,7 +9,7 @@ our $VERSION = 0.12;
     package Wraith;
 
     our @ISA = qw( Exporter );
-    our @EXPORT_OK = qw( $literal $literals $token $many $succeed $fail );
+    our @EXPORT_OK = qw( $literal $literals $token $many $succeed $fail $many_g );
 
     {
         package inner_lazy;
@@ -170,6 +170,28 @@ our $VERSION = 0.12;
         $alt->($then->($p, $f), $succeed->( [] ))
     }
     our $many = bless \&many_impl;
+
+    sub many_g_impl {
+        my $arglist = \@_;
+        bless
+        sub {
+            my ($p) = deref($arglist->[0]);
+            my $inp = $_[0];
+            my $finlist = [];
+            while (1) {
+                my $reslist = $p->($inp);
+                last if (not @$reslist);
+                my $respair = shift @$reslist;
+                for my $elt (@$reslist) {
+                    $respair = $elt if (length($respair->[1]) < length($elt->[1]));
+                }
+                push @$finlist, $respair->[0];
+                $inp = $respair->[1];
+            }
+            [ [ $concat->(@$finlist), $inp ] ]
+        }
+    }
+    our $many_g = bless \&many_g_impl;
 }
 
 {
