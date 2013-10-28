@@ -357,6 +357,12 @@ by the semantic subroutine.
 Kleene star combinator. The argument combinator will be matched at least zero time.
 The returned value is a list of all possible matchings.
 
+=head3 reference $many_g
+
+Greedy Kleene star combinator. The argument combinator will be matched at least zero time.
+The returned value is a list of the longest matching.
+This feature is experimental. Use only in unambiguous languages.
+
 =head2 Rules:
 
 Rules are products. Products are compsite of operators and/or combinators. To create
