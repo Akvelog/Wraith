@@ -9,7 +9,7 @@ our $VERSION = 0.12;
     package Wraith;
 
     our @ISA = qw( Exporter );
-    our @EXPORT_OK = qw( $literal $literals $token $many $succeed $fail $many_g );
+    our @EXPORT_OK = qw( $literal $literals $token $many $succeed $fail $many_g $opt );
 
     {
         package inner_lazy;
@@ -192,6 +192,12 @@ our $VERSION = 0.12;
         }
     }
     our $many_g = bless \&many_g_impl;
+
+    sub opt_impl {
+        my ($p) = deref($_[0]);
+        $alt->($p, $succeed->( [] ))
+    }
+    our $opt = bless \&opt_impl;
 }
 
 {
@@ -362,6 +368,10 @@ The returned value is a list of all possible matchings.
 Greedy Kleene star combinator. The argument combinator will be matched at least zero time.
 The returned value is a list of the longest matching.
 This feature is experimental. Use only in unambiguous languages.
+
+=head3 reference $opt
+
+$opt matches at most one symbol represented by the argument parser.
 
 =head2 Rules:
 

@@ -4,7 +4,7 @@ use strict;
 use warnings;
 
 use Test::More;
-use Wraith qw ( $many $token $literal $literals $many_g );
+use Wraith qw ( $many $token $literal $literals $many_g $opt );
 
 my $res_literal = $literal->('a')->('aaab');
 ok($res_literal->[0]->[0]->[0] eq 'a');   
@@ -40,5 +40,10 @@ my $cnt_many_g = 0;
 for my $cnt_many_g (0..2) {
     ok($res_many_g->[0]->[0]->[$cnt_many_g] eq $check_many_g[$cnt_many_g]);   # 17~19
 }
+
+my $res_opt = ($token->('[a-z]+') >> $opt->($token->('[1-9][0-9]*')))->('a 12');
+ok($res_opt->[0]->[0]->[0] eq 'a');
+ok($res_opt->[0]->[0]->[1] eq '12');
+ok($res_opt->[1]->[1] eq ' 12');
 
 done_testing();
