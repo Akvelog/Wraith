@@ -116,6 +116,12 @@ our $VERSION = 0.12;
     };
     our $token = bless \&token_impl;
 
+    # XXX newly added - test needed
+    sub object_impl {
+        $satisfy->(@_);
+    }
+    our $object = bless \&object_impl;
+
     sub alt_impl {
         my ($p1_, $p2_, $discard) = @_;
         bless
