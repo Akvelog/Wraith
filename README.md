@@ -17,3 +17,7 @@ implemented.
 ## TODO
 
 * Greedy/Non-greedy many for better performance.
+
+## Further work
+
+* First-class object parsing.
