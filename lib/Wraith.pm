@@ -9,7 +9,7 @@ our $VERSION = 0.12;
     package Wraith;
 
     our @ISA = qw( Exporter );
-    our @EXPORT_OK = qw( $literal $literals $token $many $succeed $fail $many_g $opt );
+    our @EXPORT_OK = qw( $literal $literals $token $many $succeed $fail $many_g $opt $satisfy );
 
     {
         package inner_lazy;
@@ -115,12 +115,6 @@ our $VERSION = 0.12;
         )
     };
     our $token = bless \&token_impl;
-
-    # XXX newly added - test needed
-    sub object_impl {
-        $satisfy->(@_);
-    }
-    our $object = bless \&object_impl;
 
     sub alt_impl {
         my ($p1_, $p2_, $discard) = @_;
@@ -312,7 +306,15 @@ the analysis result and the second parameter is the unprocessed input string.
 
 It takes an argument, discards it and return an empty list.
 
-Those two operators are rarely used. Use them if you need new combinators or empty matches.
+=head3 reference $satisfy
+
+Operator Satisfy takes two functions as arguments. The first one is a predicate which
+gives the judgement whether matching is successful. The second and optional one is
+used to split the input string into matched token and remaining stream. $satisfy use
+
+        sub { $_[0] =~ /(.)(.*)/s }
+
+as the default value of the second parameter.
 
 =head3 reference $literal
 
