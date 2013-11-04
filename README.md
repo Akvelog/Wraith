@@ -16,7 +16,8 @@ implemented.
 
 ## TODO
 
-* Greedy/Non-greedy many for better performance.
+* Profile.
+* Non-greedy many for better performance.
 
 ## Further work
 
