@@ -310,7 +310,7 @@ It takes an argument, discards it and return an empty list.
 
 Operator Satisfy takes two functions as arguments. The first one is a predicate which
 gives the judgement whether matching is successful. The second and optional one is
-used to split the input string into matched token and remaining stream. $satisfy use
+used to split the input string into matched token and remaining stream. $satisfy uses
 
         sub { $_[0] =~ /(.)(.*)/s }
 
