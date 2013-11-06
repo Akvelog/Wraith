@@ -136,6 +136,7 @@ as the default value of the second parameter.
     Greedy Kleene star combinator. The argument combinator will be matched at least zero time.
     The returned value is a list of the longest matching.
     This feature is experimental. Use only in unambiguous languages.
+    $many_g does not handle laziness by now.
 
   $opt
 

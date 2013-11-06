@@ -179,11 +179,11 @@ our $VERSION = 0.12;
             my $inp = $_[0];
             my $finlist = [];
             while (1) {
-                my $reslist = $p->($inp);
+                my $reslist = $p->($inp);   # XXX laziness-relied operator die here R.I.P. many
                 last if (not @$reslist);
                 my $respair = shift @$reslist;
                 for my $elt (@$reslist) {
-                    $respair = $elt if (length($respair->[1]) < length($elt->[1]));
+                    $respair = $elt if (length($respair->[1]) < length($elt->[1])); # XXX not covered
                 }
                 push @$finlist, $respair->[0];
                 $inp = $respair->[1];
@@ -376,6 +376,7 @@ The returned value is a list of all possible matchings.
 Greedy Kleene star combinator. The argument combinator will be matched at least zero time.
 The returned value is a list of the longest matching.
 This feature is experimental. Use only in unambiguous languages.
+$many_g does not handle laziness by now.
 
 =head3 reference $opt
 
