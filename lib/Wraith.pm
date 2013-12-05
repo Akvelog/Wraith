@@ -179,7 +179,7 @@ our $VERSION = 0.13;
             my $inp = $_[0];
             my $finlist = [];
             while (1) {
-                my $reslist = $p->($inp);   # XXX laziness-relied operator die here R.I.P. many
+                my $reslist = $p->($inp);   # XXX infinity-relied operator die here R.I.P. many
                 last if (not @$reslist);
                 my $respair = shift @$reslist;
                 for my $elt (@$reslist) {
