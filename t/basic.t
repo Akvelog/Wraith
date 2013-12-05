@@ -38,8 +38,15 @@ my $res_many_g = $many_g->($token->('[1-9][0-9]*'))->('12 324 23');
 my @check_many_g = (12, 324, 23);           
 my $cnt_many_g = 0;
 for my $cnt_many_g (0..2) {
-    ok($res_many_g->[0]->[0]->[$cnt_many_g] eq $check_many_g[$cnt_many_g]);   # 17~19
+    ok($res_many_g->[0]->[0]->[$cnt_many_g] eq $check_many_g[$cnt_many_g]);
 }
+
+my $res_amb_many_g = ($many_g->(($token->('[1-9][0-9]*')) >> $many->($token->('[1-9][0-9]*'))))->('1 2 233 2333');
+ok(scalar @{$res_amb_many_g->[0]->[0]} == 4);
+ok($res_amb_many_g->[0]->[0]->[0] eq '1');
+ok($res_amb_many_g->[0]->[0]->[1] eq '2');
+ok($res_amb_many_g->[0]->[0]->[2] eq '233');
+ok($res_amb_many_g->[0]->[0]->[3] eq '2333');
 
 my $res_opt = ($token->('[a-z]+') >> $opt->($token->('[1-9][0-9]*')))->('a 12');
 ok($res_opt->[0]->[0]->[0] eq 'a');

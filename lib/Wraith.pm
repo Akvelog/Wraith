@@ -3,7 +3,7 @@ use warnings;
 
 require Exporter;
 
-our $VERSION = 0.12;
+our $VERSION = 0.13;
 
 {
     package Wraith;
@@ -183,7 +183,7 @@ our $VERSION = 0.12;
                 last if (not @$reslist);
                 my $respair = shift @$reslist;
                 for my $elt (@$reslist) {
-                    $respair = $elt if (length($respair->[1]) < length($elt->[1])); # XXX not covered
+                    $respair = $elt if (length($respair->[1]) < length($elt->[1]));
                 }
                 push @$finlist, $respair->[0];
                 $inp = $respair->[1];
