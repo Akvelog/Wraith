@@ -127,13 +127,14 @@ our $VERSION = 0.13;
     }
     our $alt = bless \&alt_impl;
 
+    # XXX implicit context
     sub then_impl {
         my $arglist = \@_;
         bless
         sub {
             my ($p1) = deref($arglist->[0]);
             my $inp = $_[0];
-            my $reslist1 = $p1->($inp);
+            my $reslist1 = $p1->($inp, $arglist->[1]);
             my $finlist = [];
             for my $respair (@$reslist1) {
                 my ($p2) = deref($arglist->[1]);
@@ -167,7 +168,9 @@ our $VERSION = 0.13;
         my $p = $_[0];
         my $f;
         tie $f, "inner_lazy", sub { many_impl($p) };
-        $alt->($then->($p, $f), $succeed->( [] ))
+        #$alt->($then->($p, $f), $succeed->( [] ))
+        @_ = ($then->($p, $f), $succeed->( [] ));
+        goto &$alt;
     }
     our $many = bless \&many_impl;
 
